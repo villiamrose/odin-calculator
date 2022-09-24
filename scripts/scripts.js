@@ -17,3 +17,8 @@ function multiply(x, y) {
 function divide(x, y) {
   return x / y;
 }
+
+// calls func on x and y
+function operate(func, x, y) {
+  return func(x, y);
+}
