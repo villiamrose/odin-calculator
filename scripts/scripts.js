@@ -24,3 +24,27 @@ class Algebra {
     return func(x, y);
   }
 }
+
+class Screen {
+  static #textDisplay = '';
+
+  static updateTextDisplay(value) {
+    const textDisplay = document.querySelector('.textDisplay');
+    
+    this.#textDisplay = value;
+
+    textDisplay.value = this.#textDisplay;
+  }
+
+  static initialize() {
+    const buttons = document.querySelectorAll('button');
+
+    console.log(buttons);
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        Screen.updateTextDisplay(e.target.value)
+      });
+    })
+  }
+}
