@@ -62,3 +62,7 @@ input[type="text"] {
   align-items: stretch;
   gap: 10px
 }
+
+#btn_equal {
+  flex-grow: 2;
+}
