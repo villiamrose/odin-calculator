@@ -39,12 +39,14 @@ class Screen {
   static initialize() {
     const buttons = document.querySelectorAll('button');
 
-    console.log(buttons);
-
     buttons.forEach((button) => {
       button.addEventListener('click', (e) => {
         Screen.updateTextDisplay(e.target.value)
       });
     })
   }
+}
+
+function main() {
+  Screen.initialize();
 }
