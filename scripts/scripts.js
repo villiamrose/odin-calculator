@@ -34,9 +34,9 @@ class Screen {
     textDisplay.value = this.#textDisplay;
   }
 
-  static #handleNumeric(value) {
+  static #numericHandler(value) {
     this.#textDisplay += value;
-    
+
     this.#updateTextDisplay();
   }
 
@@ -44,7 +44,7 @@ class Screen {
     const value = e.target.value;
     
     if(!isNaN(value)) {
-      this.#handleNumeric(value);
+      this.#numericHandler(value);
     }
   }
   
