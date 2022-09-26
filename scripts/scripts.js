@@ -28,17 +28,26 @@ class Algebra {
 class Screen {
   static #textDisplay = '';
 
-  static updateTextDisplay(value) {
+  static #updateTextDisplay() {
     const textDisplay = document.querySelector('.textDisplay');
-    
-    this.#textDisplay = value;
 
     textDisplay.value = this.#textDisplay;
   }
 
-  static clickHandler(e) {
-    Screen.updateTextDisplay(e.target.value);
+  static #handleNumeric(value) {
+    this.#textDisplay += value;
+    
+    this.#updateTextDisplay();
   }
+
+  static clickHandler(e) {
+    const value = e.target.value;
+    
+    if(!isNaN(value)) {
+      this.#handleNumeric(value);
+    }
+  }
+  
 
   static initialize() {
     const buttons = document.querySelectorAll('button');
