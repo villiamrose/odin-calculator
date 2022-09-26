@@ -40,11 +40,19 @@ class Screen {
     this.#updateTextDisplay();
   }
 
+  static #clearHandler() {
+    this.#textDisplay = '';
+    
+    this.#updateTextDisplay();
+  }
+
   static clickHandler(e) {
     const value = e.target.value;
     
     if(!isNaN(value)) {
       this.#numericHandler(value);
+    } else if (value === 'clr') {
+      this.#clearHandler();
     }
   }
   
