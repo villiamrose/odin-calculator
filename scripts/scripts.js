@@ -36,13 +36,15 @@ class Screen {
     textDisplay.value = this.#textDisplay;
   }
 
+  static clickHandler(e) {
+    Screen.updateTextDisplay(e.target.value);
+  }
+
   static initialize() {
     const buttons = document.querySelectorAll('button');
 
     buttons.forEach((button) => {
-      button.addEventListener('click', (e) => {
-        Screen.updateTextDisplay(e.target.value)
-      });
+      button.addEventListener('click', (e) => Screen.clickHandler(e));
     })
   }
 }
