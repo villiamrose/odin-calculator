@@ -46,6 +46,15 @@ class Screen {
     this.#updateTextDisplay();
   }
 
+  static #deleteHandler() {
+    const textDisplay = this.#textDisplay;
+    const textDisplayLength = textDisplay.length;
+    
+    this.#textDisplay = textDisplay.substring(0, textDisplayLength - 1);
+
+    this.#updateTextDisplay();
+  }
+
   static clickHandler(e) {
     const value = e.target.value;
     
@@ -53,6 +62,8 @@ class Screen {
       this.#numericHandler(value);
     } else if (value === 'clr') {
       this.#clearHandler();
+    } else if (value === 'del') {
+      this.#deleteHandler();
     }
   }
   
