@@ -82,9 +82,10 @@ class Calculator {
 
   #isNumericValid(value) {
     const isNumber = !isNaN(value);
-    const isDecimalAllowed = !this.getMainValue().includes('.');
+    const isDecimalOk = !this.getMainValue().includes('.');
+    const isMoreOk = this.getMainValue().length < 16;
     
-    return (isNumber || isDecimalAllowed);
+    return (isNumber || isDecimalOk) && isMoreOk;
   }
 
   #numericHandler(value) {
