@@ -108,7 +108,7 @@ class Calculator {
     const valueLength = mainValue.length; 
     const newValue = mainValue.substring(0, valueLength - 1);
 
-    if (this.#cursor = 'x') {
+    if(this.#cursor === 'x') {
       this.#x = newValue;
     } else {
       this.#y = newValue;
@@ -135,7 +135,7 @@ class Calculator {
       this.#clearHandler();
     } else if (value === 'del') {
       this.#deleteHandler();
-    }
+    } 
   }
 }
 
