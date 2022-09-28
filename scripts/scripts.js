@@ -126,6 +126,18 @@ class Calculator {
     Screen.updateDisplay(this);
   }
 
+  #operatorHandler(value) {
+    const isAllowedX = this.#cursor === 'x' && this.#getX() !== '';
+    const isAllowedY = this.#cursor === 'y' && this.#getY() === '';
+
+    if(isAllowedX || isAllowedY) {
+      this.#cursor = 'y';
+      this.#op = value;
+
+      Screen.updateDisplay(this);
+    }
+  }
+
   handleEvent(e) {
     const value = e.target.value;
 
@@ -135,7 +147,9 @@ class Calculator {
       this.#clearHandler();
     } else if (value === 'del') {
       this.#deleteHandler();
-    } 
+    } else if (['+', '-', 'x', '/'].includes(value)) {
+      this.#operatorHandler(value);
+    }
   }
 }
 
