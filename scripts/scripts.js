@@ -26,39 +26,109 @@ class Algebra {
 }
 
 class Screen {
-  static #textDisplay = '';
+  static updateDisplay(calc) {
+    const mainDisplay = document.querySelector('.main');
+    const subDisplay = document.querySelector('.sub');
 
-  static #updateTextDisplay() {
-    const textDisplay = document.querySelector('.textDisplay');
-
-    textDisplay.value = this.#textDisplay;
-  }
-
-  static #numericHandler(value) {
-    this.#textDisplay += value;
-
-    this.#updateTextDisplay();
-  }
-
-  static #clearHandler() {
-    this.#textDisplay = '';
+    const mainValue = calc.getOp().concat(' ', calc.getMainValue());
+    const subValue = calc.getSubValue();
     
-    this.#updateTextDisplay();
+    mainDisplay.value = mainValue;
+    subDisplay.value = subValue;
   }
 
-  static #deleteHandler() {
-    const textDisplay = this.#textDisplay;
-    const textDisplayLength = textDisplay.length;
+  static initialize(calc) {
+    const buttons = document.querySelectorAll('button');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', calc);
+    })
+  }
+}
+
+class Calculator {
+  #x = null;
+  #y = null;
+  #op = null;
+  #cursor = 'x';
+
+  #getX() {
+    return this.#x || "";
+  }
+
+  #getY() {
+    return this.#y || "";
+  }
+
+  getOp() {
+    return this.#op || "";
+  }
+
+  getMainValue() {
+    if (this.#cursor === 'x') {
+      return this.#getX();
+    } else {
+      return this.#getY();
+    }
+  }
+
+  getSubValue() {
+    if (this.#cursor === 'y') {
+      return this.#getX();
+    } else {
+      return '';
+    }
+  }
+
+  #isNumericValid(value) {
+    const isNumber = !isNaN(value);
+    const isDecimalAllowed = !this.getMainValue().includes('.');
     
-    this.#textDisplay = textDisplay.substring(0, textDisplayLength - 1);
-
-    this.#updateTextDisplay();
+    return (isNumber || isDecimalAllowed);
   }
 
-  static clickHandler(e) {
+  #numericHandler(value) {
+    if (this.#isNumericValid(value)) {
+      const currentValue = this.getMainValue();
+      const newValue = currentValue === '0' ? value : currentValue + value;
+
+      if (this.#cursor === 'x') {
+        this.#x = newValue;
+      } else {
+        this.#y = newValue;
+      }
+    }
+
+    Screen.updateDisplay(this);
+  }
+
+  #deleteHandler() {
+    const mainValue = this.getMainValue();
+    const valueLength = mainValue.length; 
+    const newValue = mainValue.substring(0, valueLength - 1);
+
+    if (this.#cursor = 'x') {
+      this.#x = newValue;
+    } else {
+      this.#y = newValue;
+    }
+
+    Screen.updateDisplay(this);
+  }
+
+  #clearHandler() {
+    this.#x = null;
+    this.#y = null;
+    this.#op = null;
+    this.#cursor = 'x';
+
+    Screen.updateDisplay(this);
+  }
+
+  handleEvent(e) {
     const value = e.target.value;
-    
-    if(!isNaN(value)) {
+
+    if(!isNaN(value) || value === '.') {
       this.#numericHandler(value);
     } else if (value === 'clr') {
       this.#clearHandler();
@@ -66,17 +136,8 @@ class Screen {
       this.#deleteHandler();
     }
   }
-  
-
-  static initialize() {
-    const buttons = document.querySelectorAll('button');
-
-    buttons.forEach((button) => {
-      button.addEventListener('click', (e) => Screen.clickHandler(e));
-    })
-  }
 }
 
 function main() {
-  Screen.initialize();
+  Screen.initialize(new Calculator());
 }
