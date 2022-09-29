@@ -110,6 +110,9 @@ class Calculator {
 
     if(this.#cursor === 'x') {
       this.#x = newValue;
+    } else if(mainValue === '') {
+      this.#cursor = 'x';
+      this.#op = null;
     } else {
       this.#y = newValue;
     }
