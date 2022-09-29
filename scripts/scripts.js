@@ -50,7 +50,7 @@ class Calculator {
   #x = null;
   #y = null;
   #op = null;
-  #cursor = '×';
+  #cursor = 'x';
 
   #getX() {
     return this.#x || "";
@@ -65,7 +65,7 @@ class Calculator {
   }
 
   getMainValue() {
-    if (this.#cursor === '×') {
+    if (this.#cursor === 'x') {
       return this.#getX();
     } else {
       return this.#getY();
@@ -93,7 +93,7 @@ class Calculator {
       const currentValue = this.getMainValue();
       const newValue = currentValue === '0' ? value : currentValue + value;
 
-      if (this.#cursor === '×') {
+      if (this.#cursor === 'x') {
         this.#x = newValue;
       } else {
         this.#y = newValue;
@@ -108,7 +108,7 @@ class Calculator {
     const valueLength = mainValue.length; 
     const newValue = mainValue.substring(0, valueLength - 1);
 
-    if(this.#cursor === '×') {
+    if(this.#cursor === 'x') {
       this.#x = newValue;
     } else {
       this.#y = newValue;
@@ -121,13 +121,13 @@ class Calculator {
     this.#x = null;
     this.#y = null;
     this.#op = null;
-    this.#cursor = '×';
+    this.#cursor = 'x';
 
     Screen.updateDisplay(this);
   }
 
   #operatorHandler(value) {
-    const isAllowedX = this.#cursor === '×' && this.#getX() !== '';
+    const isAllowedX = this.#cursor === 'x' && this.#getX() !== '';
     const isAllowedY = this.#cursor === 'y' && this.#getY() === '';
 
     if(isAllowedX || isAllowedY) {
