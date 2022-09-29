@@ -130,15 +130,19 @@ class Calculator {
   }
 
   #operatorHandler(value) {
-    const isAllowedX = this.#cursor === 'x' && this.#getX() !== '';
-    const isAllowedY = this.#cursor === 'y' && this.#getY() === '';
+    const isCursorX = this.#cursor === 'x';
+    const isCursorY = this.#cursor === 'y';
+    const isAllowedX = isCursorX && this.#getX() !== '';
+    const isAllowedY = isCursorY && this.#getY() === '';
 
     if(isAllowedX || isAllowedY) {
       this.#cursor = 'y';
       this.#op = value;
-
-      Screen.updateDisplay(this);
+    } else if (isCursorY) {
+      this.#equalHandler(value);
     }
+
+    Screen.updateDisplay(this);
   }
 
   #getOperator() {
@@ -154,21 +158,27 @@ class Calculator {
     }
   }
 
-  #equalHandler() {
+  #equalHandler(value) {
     const x = this.#getX();
     const y = this.#getY();
+    const isValuesValid = x !== '' && y !== '';
 
-    if(x !== '' && y !== '') {
+    if(isValuesValid) {
       const operator = this.#getOperator();
       const result = Algebra.operate(operator, parseFloat(x), parseFloat(y));
-
+      
       this.#x = result.toString();
       this.#y = null;
-      this.#op = null;
-      this.#cursor = 'x';
-
-      Screen.updateDisplay(this);
+      
+      if(value === 'eql') {
+        this.#cursor = 'x';
+        this.#op = null;
+      } else {
+        this.#op = value;
+      }
     }
+
+    Screen.updateDisplay(this);
   }
 
   handleEvent(e) {
@@ -183,7 +193,7 @@ class Calculator {
     } else if (['+', '-', '×', '/'].includes(value)) {
       this.#operatorHandler(value);
     } else if(value === 'eql') {
-      this.#equalHandler();
+      this.#equalHandler(value);
     }
   }
 }
