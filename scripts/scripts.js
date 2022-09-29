@@ -141,6 +141,36 @@ class Calculator {
     }
   }
 
+  #getOperator() {
+    switch(this.#op) {
+      case '+':
+        return Algebra.add;
+      case '-':
+        return Algebra.subtract;
+      case '×':
+        return Algebra.multiply;
+      case '/':
+        return Algebra.divide;
+    }
+  }
+
+  #equalHandler() {
+    const x = this.#getX();
+    const y = this.#getY();
+
+    if(x !== '' && y !== '') {
+      const operator = this.#getOperator();
+      const result = Algebra.operate(operator, parseFloat(x), parseFloat(y));
+
+      this.#x = result.toString();
+      this.#y = null;
+      this.#op = null;
+      this.#cursor = 'x';
+
+      Screen.updateDisplay(this);
+    }
+  }
+
   handleEvent(e) {
     const value = e.target.value;
 
@@ -152,6 +182,8 @@ class Calculator {
       this.#deleteHandler();
     } else if (['+', '-', '×', '/'].includes(value)) {
       this.#operatorHandler(value);
+    } else if(value === 'eql') {
+      this.#equalHandler();
     }
   }
 }
