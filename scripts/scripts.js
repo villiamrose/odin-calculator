@@ -194,9 +194,9 @@ class Calculator {
       const value = parseFloat(this.getMainValue());
 
       if(value > 0) {
-        this.#setMainValue(-value.toString());
+        this.#setMainValue(`${-value}`);
       } else {
-        this.#setMainValue(Math.abs(value.toString()));
+        this.#setMainValue(`${Math.abs(value)}`);
       }
 
       Screen.updateDisplay(this);
