@@ -114,7 +114,8 @@ class Calculator {
   #deleteHandler() {
     const mainValue = this.getMainValue();
     const valueLength = mainValue.length; 
-    const newValue = mainValue.substring(0, valueLength - 1);
+    const index = (valueLength === 2 && mainValue < 0) ? 2 : 1;
+    const newValue = mainValue.substring(0, valueLength - index);
 
     if(this.#cursor === 'x') {
       this.#x = newValue;
