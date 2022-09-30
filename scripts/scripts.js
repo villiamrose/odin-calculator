@@ -16,7 +16,7 @@ class Algebra {
 
   // returns quotient of x and y
   static divide(x, y) {
-    return x / y;
+    return y === 0 ? '' : (x / y);
   }
 
   // calls func on x and y
