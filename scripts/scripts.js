@@ -83,7 +83,7 @@ class Calculator {
   #isNumericValid(value) {
     const isNumber = !isNaN(value);
     const isDecimalOk = !this.getMainValue().includes('.');
-    const isMoreOk = this.getMainValue().length < 16;
+    const isMoreOk = this.getMainValue().length < 15;
     
     return (isNumber || isDecimalOk) && isMoreOk;
   }
