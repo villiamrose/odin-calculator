@@ -80,6 +80,14 @@ class Calculator {
     }
   }
 
+  #setMainValue(value) {
+    if (this.#cursor === 'x') {
+      this.#x = value;
+    } else {
+      this.#y = value;
+    }
+  }
+
   #isNumericValid(value) {
     const isNumber = !isNaN(value);
     const isDecimalOk = !this.getMainValue().includes('.');
@@ -181,6 +189,20 @@ class Calculator {
     Screen.updateDisplay(this);
   }
 
+  #signHandler() {
+    if(this.getMainValue() !== '') {
+      const value = parseFloat(this.getMainValue());
+
+      if(value > 0) {
+        this.#setMainValue(-value.toString());
+      } else {
+        this.#setMainValue(Math.abs(value.toString()));
+      }
+
+      Screen.updateDisplay(this);
+    }
+  }
+
   handleEvent(e) {
     const value = e.target.value;
 
@@ -194,6 +216,8 @@ class Calculator {
       this.#operatorHandler(value);
     } else if(value === 'eql') {
       this.#equalHandler(value);
+    } else if (value === 'sign') {
+      this.#signHandler();
     }
   }
 }
