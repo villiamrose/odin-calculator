@@ -1,10 +1,18 @@
+:root {
+  --red: #F69C9C;
+  --orange: #F5BD98;
+  --yellow: #F0EB8D;
+  --green: #A7F29D;
+  --blue: #A7D2F5;
+  --gray: gray;
+  --grayblue: #C6C9D0;
+  --black: #414141;
+  --highlight: 255, 0, 0;
+}
+
 * {
   box-sizing: border-box;
 }
-
-/* body * {
-  border: 1px solid black;
-} */
 
 body {
   margin: 0;
@@ -15,16 +23,49 @@ body {
 }
 
 button {
-  font-size: 100%;
+  font-size: 150%;
   font-weight: bold;
+  color: var(--black);
+  border: 2px solid var(--gray);
+  border-radius: 10px;
 
   flex: 1;
+}
+
+.edit {
+  font-size: 120%;
+  background-color: var(--red);
+}
+
+.symbol {
+  font-size: 120%;
+  background-color: var(--yellow);
+}
+
+.operator {
+  background-color: var(--orange);
+}
+
+.equal {
+  background-color: var(--green);
+}
+
+.number {
+  background-color: var(--blue);
+}
+
+button:hover {
+  filter: brightness(95%);
+}
+
+button:active {
+  filter: brightness(105%);
 }
 
 input[type="text"] {
   width: 100%;
   text-align: right;
-  border: 2px solid gray;
+  border: 2px solid var(--gray);
 
   padding: 10px;
   font-size: 30px;
@@ -48,8 +89,9 @@ input[type="text"] {
 }
 
 .calculator {
-  border: 3px solid gray;
-  border-radius: 5px;
+  border: 3px solid var(--gray);
+  background-color: var(--grayblue);
+  border-radius: 10px;
   width: 350px;
   height: 500px;
 
