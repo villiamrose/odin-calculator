@@ -55,11 +55,11 @@ button {
 }
 
 button:hover {
-  filter: brightness(95%);
+  filter: brightness(105%);
 }
 
 button:active {
-  filter: brightness(105%);
+  filter: brightness(95%);
 }
 
 input[type="text"] {
