@@ -39,10 +39,13 @@ class Screen {
 
   static initialize(calc) {
     const buttons = document.querySelectorAll('button');
+    const body = document.querySelector('body');
 
     buttons.forEach((button) => {
       button.addEventListener('click', calc);
-    })
+    });
+
+    body.addEventListener('keydown', calc);
   }
 }
 
@@ -205,20 +208,32 @@ class Calculator {
   }
 
   handleEvent(e) {
-    const value = e.target.value;
+    const type = e.type;
+    
+    if(type === 'click') {
+      const value = e.target.value;
 
-    if(!isNaN(value) || value === '.') {
-      this.#numericHandler(value);
-    } else if (value === 'clr') {
-      this.#clearHandler();
-    } else if (value === 'del') {
-      this.#deleteHandler();
-    } else if (['+', '-', '×', '/'].includes(value)) {
-      this.#operatorHandler(value);
-    } else if(value === 'eql') {
-      this.#equalHandler(value);
-    } else if (value === 'sign') {
-      this.#signHandler();
+      if(!isNaN(value) || value === '.') {
+        this.#numericHandler(value);
+      } else if (value === 'clr') {
+        this.#clearHandler();
+      } else if (value === 'del') {
+        this.#deleteHandler();
+      } else if (['+', '-', '×', '/'].includes(value)) {
+        this.#operatorHandler(value);
+      } else if(value === 'eql') {
+        this.#equalHandler(value);
+      } else if (value === 'sign') {
+        this.#signHandler();
+      }
+    } else if(type === 'keydown') {
+      const key = e.key;
+
+      console.log(e);
+      
+      if(!isNaN(key) || key === '.') {
+        this.#numericHandler(key);
+      }
     }
   }
 }
