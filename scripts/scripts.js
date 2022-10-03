@@ -233,6 +233,8 @@ class Calculator {
       
       if(!isNaN(key) || key === '.') {
         this.#numericHandler(key);
+      } else if (key === 'Backspace') {
+        this.#deleteHandler();
       }
     }
   }
