@@ -235,6 +235,8 @@ class Calculator {
         this.#numericHandler(key);
       } else if (key === 'Backspace') {
         this.#deleteHandler();
+      } else if (key === 'Escape') {
+        this.#clearHandler();
       }
     }
   }
