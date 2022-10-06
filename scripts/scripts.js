@@ -237,6 +237,8 @@ class Calculator {
         this.#deleteHandler();
       } else if (key === 'Escape') {
         this.#clearHandler();
+      } else if (key === 'Enter') {
+        this.#equalHandler('eql');
       }
     }
   }
